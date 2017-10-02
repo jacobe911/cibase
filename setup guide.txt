@@ -24,3 +24,32 @@ create your database.
 
 
 There are a few examples in the controllers and views folders to use to help setup users accounts, with forms and validation using ion_auth.
+
+Add a htaccess file to the root folder with the following text:
+
+RewriteEngine On
+SetEnv
+
+If Host www.yoursite.tld$ CI_ENV=production
+#SetEnv
+If Host test.yoursite.tld$ CI_ENV=testing
+SetEnv
+If Host localhost$ CI_ENV=development
+
+
+
+RewriteCond $1 !^(index\\.php|resources|robots\\.txt)
+
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^(.*)$ index.php?/$1 [L,QSA]
+
+
+
+<IfModule mod_headers.c>
+    
+Header set Access-Control-Allow-Origin: *
+
+</IfModule>
